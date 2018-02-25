@@ -1,0 +1,26 @@
+{
+  "name": "lottery",
+  "version": "0.0.1",
+  "description": "An exercise sample taken from Udemy's \"Ethereum and Solidity, the complete developers guide\" course, created by Stephen Grider.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "node ./compile.js",
+    "test": "mocha",
+    "deploy": "node ./deploy.js"
+  },
+  "keywords": [
+    "ethereum",
+    "solidity"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ganache-cli": "^6.0.3",
+    "solc": "^0.4.20",
+    "truffle-hdwallet-provider": "0.0.3",
+    "web3": "^1.0.0-beta.30"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.1"
+  }
+}
