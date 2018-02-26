@@ -17,14 +17,28 @@ describe("Lottery Contract", () => {
     accounts = await web3.eth.getAccounts();            // 6. get available ganache's accounts
 
     // Use one of these accounts to deploy the contract
-    loterry = await new web3.eth.Contract(JSON.parse(interface))            // 7. Instantiate a new web3.eth.Contract instance by specified contract's interface object
+    lottery = await new web3.eth.Contract(JSON.parse(interface))            // 7. Instantiate a new web3.eth.Contract instance by specified contract's interface object
                   .deploy({data: bytecode}) // 8. Prepare contract's object to deploy , by specified contract's bytecode and its constructor's arg.
                   .send({from: accounts[0], gas: '1000000'});             // 9. Deploy the contract to blockchain by specified ganache's account and amount of required gas.
-    loterry.setProvider(provider);                                         // 10. Associate the ganache's provider object with the deployed contract.
+    lottery.setProvider(provider);                                         // 10. Associate the ganache's provider object with the deployed contract.
   });
 
   it(`deploys a contract`, () => {
     // console.log(`[DEBUG] - inbox=\n`, inbox);
-    assert.ok(loterry.options.address);
+    assert.ok(lottery.options.address);
   });
+
+  it('allows one account to enter', async () => {
+    await lottery.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei('0.02', 'ether')
+    });
+
+    const players = await lottery.methods.getPlayers().call({
+      from: accounts[1]
+    });
+
+    assert.equal(1, players.length);
+    assert.equal(players[0], accounts[1]);
+  })
 });
