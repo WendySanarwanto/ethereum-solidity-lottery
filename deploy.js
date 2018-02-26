@@ -43,7 +43,7 @@ async function deploy(gas, gasPrice) {
   }
   
   const deployedContract = await new web3.eth.Contract(JSON.parse(interface))
-                      .deploy({data: bytecode, arguments: ['Hello Ethereum !']})
+                      .deploy({data: bytecode})
                       .send({gas: gas, gasPrice: gasPrice, from: account.address});
   console.log(`[INFO] - Contract has been deployed to `, deployedContract.options.address);
 
