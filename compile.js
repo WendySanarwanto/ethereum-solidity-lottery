@@ -3,11 +3,12 @@
 const path = require('path');
 const fs = require('fs');
 const solc = require('solc');
-
-const resolvedInboxSolPath = path.resolve(__dirname, 'contracts', 'Lottery.sol');
+const CONTRACT_NAME = 'Lottery';
+const resolvedInboxSolPath = path.resolve(__dirname, 'contracts', `${CONTRACT_NAME}.sol`);
 
 const contractContent = fs.readFileSync(resolvedInboxSolPath, 'utf8');
-const compiledContract = solc.compile(contractContent, 1);
-const inboxCompiledContract = compiledContract.contracts[':Inbox'];
+let compiledContract = solc.compile(contractContent, 1);
+compiledContract = compiledContract.contracts[`:${CONTRACT_NAME}`];
+console.log(`[DEBUG] - <compile> compiledContract: \n`, compiledContract);
 
-module.exports = inboxCompiledContract;
+module.exports = compiledContract;
